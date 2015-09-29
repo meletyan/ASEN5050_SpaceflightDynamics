@@ -1,4 +1,5 @@
-function [aTrans, tauTrans, dva, dvb, dv] = HOHMANNTRANSFERELLIPTIC(rInitial, rFinal, eInitial, eFinal, initPoint, finalPoint, MU)
+function [aTrans, tauTrans, dva, dvb, dv] = ...
+    HOHMANNTRANSFERELLIPTIC(rInitial, rFinal, aInitial, aFinal, MU)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Computes velocities required to achieve a two-burn Hohmann transfer
 %%% between two ellipitcal orbits. Assume:
@@ -7,10 +8,8 @@ function [aTrans, tauTrans, dva, dvb, dv] = HOHMANNTRANSFERELLIPTIC(rInitial, rF
 %%%
 %%% Input:  rInitial    -   Initial orbit radius
 %%%           rFinal    -   Final orbit radius
-%%%         eInitial    -   Eccentricity of starting orbit
-%%%           eFinal    -   Eccentricity of final orbit
-%%%        initPoint    -   Set equal to 1 if the 1st burn is at periapsis
-%%%       finalPoint    -   Set equal to 1 if the 2nd burn is at periapsis
+%%%         aInitial    -   Semi-major axis of starting orbit
+%%%           aFinal    -   Semi-major axis of destination orbit
 %%%               MU    -   Gravitational parameter km^3/s^2
 %%%
 %%% Output:   aTrans    -   Semi-major axis of transfer orbit
@@ -20,25 +19,30 @@ function [aTrans, tauTrans, dva, dvb, dv] = HOHMANNTRANSFERELLIPTIC(rInitial, rF
 %%%               dv    -   Total change in velocity
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if initPoint == 1  % First burn at periapsis
-    aInitial = rInitial / (1 - eInitial);
-else               % First burn at apoapsis
-    aInitial = rInitial / (1 + eInitial);
-end
-if finalPoint == 1  % Second burn at periapsis
-    aFinal = rFinal / (1 - eFinal);
-else               % Second burn at apoapsis
-    aFinal = rFinal / (1 + eFinal);
-end
-
+% Transfer orbit semi-major axis
 aTrans   = (rInitial + rFinal) / 2;
+
+% Tangential velocity before 1st burn
 vInitial = sqrt(2 * MU / rInitial - MU / aInitial);
+
+% Velocity required to enter transfer orbit
 vTransA  = sqrt(2 * MU / rInitial - MU / aTrans);
+
+% Velocity required to enter destination orbit
 vFinal   = sqrt(2 * MU / rFinal - MU / aFinal);
+
+% Velocity in transfer orbit before 2nd burn
 vTransB  = sqrt(2 * MU / rFinal - MU / aTrans);
 
+% 1st Burn
 dva      = vTransA - vInitial;
+
+% 2nd Burn
 dvb      = vFinal - vTransB;
+
+% Total velocity change
 dv       = abs(dva) + abs(dvb);
+
+% Transfer time
 tauTrans = pi * sqrt(aTrans^3 / MU);
 end
