@@ -1,7 +1,7 @@
 function [aTrans, tauTrans, dva, dvb, dv] = HOHMANNTRANSFERCIRCULAR(rInitial, rFinal, MU)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Computes velocities required to achieve a two-burn Hohmann transfer
-%%% between two circular orbits where r1 < r2.
+%%% between two circular orbits.
 %%%
 %%% Input:  rInitial    -   Initial orbit radius
 %%%           rFinal    -   Final orbit radius
