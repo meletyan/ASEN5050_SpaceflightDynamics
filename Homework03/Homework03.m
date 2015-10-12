@@ -30,11 +30,12 @@ raan = deg2rad(342.1053);
 w    = deg2rad(106.9025);
 M    = deg2rad(231.8021);
 e    = 0.0008148;
-n    = 15.59182721;  % revs/day
+nrd  = 15.59182721;  % revs/day
+n    = nrd * 2 * pi / 24 / 3600;  % rad/s
 MU_E = 398600.4418;
 
 % Find rijk, vijk in ECI
-T    = 60 * 60 * 24 / n;
+T    = 60 * 60 * 24 / nrd;
 a    = ((T / (2 * pi))^2 * MU_E)^(1 / 3);
 p    = a * (1 - e^2);
 E    = KEPEQNE(M, e);
@@ -54,10 +55,11 @@ nu1 = nu;
 % Analysis
 
 % At time 2 (t2 - t1) = dt
-nu2 = TRUEANOMALYFROMT(T, MU_E, e, n, dt);
+nu2 = TRUEANOMALYFROMT(M1, e, n, dt);
 
 % Position and velocity at dt
 [rijk2, vijk2] = COE2RV(p, e, i, raan, w, nu2, MU_E);
+
 
 
 

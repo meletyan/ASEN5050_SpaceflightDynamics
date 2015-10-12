@@ -32,7 +32,7 @@ vpqw = [-smp * snu;
          0];
 
 % Calculate the direction cosine matrix for R3 * R1 * R3
-dcm = transpose(rotz(rad2deg(-w)) * rotx(rad2deg(-i)) * rotz(rad2deg(-raan)));
+dcm = transpose(ROTZ(w) * ROTX(i) * ROTZ(raan));
 
 % Apply rotation
 rijk = dcm * rpqw;

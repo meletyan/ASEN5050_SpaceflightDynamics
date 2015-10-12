@@ -15,12 +15,12 @@ at = zeros(3,1);
 tau = zeros(3,1);
 dva = zeros(3,1);
 dvb = zeros(3,1);
-dv = zeros(3,1);
+dvt = zeros(3,1);
 
 % Analysis
-[at(1), tau(1), dva(1), dvb(1), dv(1)] = HOHMANNTRANSFERCIRCULAR(re, rv, MU_Sun);
-[at(2), tau(2), dva(2), dvb(2), dv(2)] = HOHMANNTRANSFERCIRCULAR(re, rm, MU_Sun);
-[at(3), tau(3), dva(3), dvb(3), dv(3)] = HOHMANNTRANSFERCIRCULAR(re, rj, MU_Sun);
+[at(1), tau(1), dva(1), dvb(1), dvt(1)] = HOHMANNTRANSFERCIRCULAR(re, rv, MU_Sun);
+[at(2), tau(2), dva(2), dvb(2), dvt(2)] = HOHMANNTRANSFERCIRCULAR(re, rm, MU_Sun);
+[at(3), tau(3), dva(3), dvb(3), dvt(3)] = HOHMANNTRANSFERCIRCULAR(re, rj, MU_Sun);
 
 %% Problem 2
 clc; clear;
@@ -51,7 +51,7 @@ mu = 398600.4418;
 
 % Analysis
 a = 6378.137 + h;
-[tauPhase, dv, aPhase] = ...
+[tauPhase, dV, aPhase] = ...
     CIRCULARCOPLANARPHASING(a, theta, kTarget, kIntercept, mu);
 
 %% Problem 4
@@ -59,7 +59,7 @@ clc; clear;
 
 % Given
 h_iss = 400;
-dt = 5 * 60;
+dt = 30 * 60;
 x0 = .200;
 y0 = .300;
 z0 = .050;
@@ -72,5 +72,8 @@ mu_E = 398600.4418;
 r_iss = 6378.137 + h_iss;
 w_tgt = sqrt(mu_E / r_iss^3);
 
-[x, y, z, dx, dy, dz] = ...
-    HILLSEQN(x0, y0, z0, dx0, dy0, dz0, w_tgt, dt);
+[dx, dy, dz] = CWVELOCITY(x0, y0, z0, w_tgt, dt);
+
+dv1 = norm([dx, dy, dz]) - norm([dx0, dy0, dz0]);
+dv  = 2 * abs(dv1);
+
