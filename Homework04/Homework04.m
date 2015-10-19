@@ -60,19 +60,19 @@ clc; clear;
 % Given
 
 % Greenwich Sidereal Time
-theta_gst = rad2deg(82.75);
+theta_gst = deg2rad(82.75);
 % Eccentricity of Earth
 e_E       = 0.81819221456;
 % Position in ECI
 r_eci     = [-5634; -2645; 2834];
 
 % Analysis
-
 % Convert ECI to ECEF frame
 r_ecef = ECI2ECEF(r_eci, theta_gst);
 
 % Determine lat/lon/alt of ECEF vector
 [phi_gd, lambda, h] = ECEF2LATLON(r_ecef);
+
 % Compute Geocentric latitude
 phi_gc = atan((1 - e_E^2) * tan(phi_gd));
 
@@ -92,9 +92,9 @@ lambdaBoulder    = deg2rad(254.83);
 hBoulder         = 1.615;  % km
 
 % Analysis
-
+R_E = 6378.137;
 % Find ECEF position of Boulder
-ecef_Boulder = LATLON2ECEF(phiBoulder, lambdaBoulder, hBoulder);
+ecef_Boulder = LATLON2ECEF(phiBoulder, lambdaBoulder, hBoulder, R_E);
 % Rotate to ECI
 eci_Boulder = ECEF2ECI(ecef_Boulder, theta_gstBoulder);
 
@@ -117,7 +117,8 @@ hBoulder         = 1.615;  % km
 
 % Calculate azimuth, elevation, and range
 r_topo = ECEF2TOPO(r_sat, phiBoulder, lambdaBoulder, hBoulder);
-
+disp(rad2deg(r_topo(1)))
+disp(rad2deg(r_topo(2)))
 
 
 

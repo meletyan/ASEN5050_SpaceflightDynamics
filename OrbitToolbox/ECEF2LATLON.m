@@ -24,9 +24,7 @@ rz = pos_ecef(3);
 rd = sqrt(rx^2 + ry^2);
 
 % Calculate longitude
-sa = ry / rd;
-ca = rx / rd;
-lambda = atan(sa / ca);
+lambda = atan2(ry, rx);
 
 % Iterate to solve for geodetic latitude
 tol = 1e-8;

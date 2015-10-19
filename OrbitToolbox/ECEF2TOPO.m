@@ -13,7 +13,10 @@ function pos_topo = ECEF2TOPO(pos_ecef, phi, lambda, h)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Find difference between tracking station and satellite in ECEF
-r = pos_ecef - LATLON2ECEF(phi, lambda, h);
+r_ecef = pos_ecef - LATLON2ECEF(phi, lambda, h, 6378.137);
+
+% Rotate to SEZ
+r = ECEF2SEZ(r_ecef, phi, lambda);
 
 % Decompose vector for convenience
 rx = r(1);
@@ -21,10 +24,11 @@ ry = r(2);
 rz = r(3);
 
 % Calculate azimuth, range, elevation relative to tracking station
-azimuth     = atan2(ry, rx);
+azimuth     = atan2(ry, -rx);
 elevation   = atan2(rz, sqrt(rx^2 + ry^2));
-range       = norm(r);
+range       = rz / sin(elevation);
 
 % Concatenate into single output vector
 pos_topo = [azimuth; elevation; range];
+
 end

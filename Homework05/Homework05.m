@@ -71,9 +71,18 @@ mu_E = 398600.4418;
 % Analysis
 r_iss = 6378.137 + h_iss;
 w_tgt = sqrt(mu_E / r_iss^3);
+S = sin(w_tgt * dt);
+C = cos(w_tgt * dt);
 
-[dx, dy, dz] = CWVELOCITY(x0, y0, z0, w_tgt, dt);
+% Velocity required to rendezvous with ISS
+[dx1, dy1, dz1] = CWVELOCITY(x0, y0, z0, w_tgt, dt);
+dv1 = norm([dx1, dy1, dz1] - [dx0, dy0, dz0]);
 
-dv1 = norm([dx, dy, dz]) - norm([dx0, dy0, dz0]);
-dv  = 2 * abs(dv1);
+% Velocity required to match speed
+dx2 = dx1 * C + (3 * w_tgt * x0 + 2 * dy1) * S;
+dy2 = (6 * w_tgt * x0 + 4 * dy1) * C - 2 * dx1 * S - (6 * w_tgt * x0 + 3 * dy1);
+dz2 = -z0 * w_tgt * S + dz1 * C;
+dv2 = norm([dx2, dy2, dz2] - [dx1, dy1, dz1]);
+
+dvT = dv1 + dv2;
 

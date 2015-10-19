@@ -1,4 +1,4 @@
-function pos_ecef = LATLON2ECEF(phi_gd, lambda, h)
+function pos_ecef = LATLON2ECEF(phi_gd, lambda, h, R_E)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Compute ECEF position on Earth from lat, lon, and altitude
 %%%
@@ -11,7 +11,7 @@ function pos_ecef = LATLON2ECEF(phi_gd, lambda, h)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Pre-assign sin/cos functions
-r  = h + 6378.1363;
+r  = h + R_E;
 cp = cos(phi_gd);
 sp = sin(phi_gd);
 cl = cos(lambda);
