@@ -62,7 +62,7 @@ clc; clear;
 % Greenwich Sidereal Time
 theta_gst = deg2rad(82.75);
 % Eccentricity of Earth
-e_E       = 0.81819221456;
+e_E       = 0.081819221456;
 % Position in ECI
 r_eci     = [-5634; -2645; 2834];
 
@@ -117,8 +117,6 @@ hBoulder         = 1.615;  % km
 
 % Calculate azimuth, elevation, and range
 r_topo = ECEF2TOPO(r_sat, phiBoulder, lambdaBoulder, hBoulder);
-disp(rad2deg(r_topo(1)))
-disp(rad2deg(r_topo(2)))
 
 
 

@@ -10,7 +10,7 @@ function pos_sez = ECEF2SEZ(pos_ecef, phi, lambda)
 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-pos_sez = ROTY(pi / 2 - phi) * ROTZ(lambda) * pos_ecef;
+pos_sez = ROTY(-pi / 2 + phi) * ROTZ(lambda) * pos_ecef;
 
 end
 

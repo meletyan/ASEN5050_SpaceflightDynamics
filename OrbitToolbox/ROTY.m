@@ -2,7 +2,7 @@ function dcm = ROTY(theta)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Direction cosine matrix rotation about axis 2
 %%%
-%%% Input:    theta    -   Rotation angle about axis 2 (X)
+%%% Input:    theta    -   Rotation angle about axis 2 (Y)
 %%%
 %%% Output:     dcm    -   Direction cosine matrix
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

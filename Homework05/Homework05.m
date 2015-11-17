@@ -60,12 +60,12 @@ clc; clear;
 % Given
 h_iss = 400;
 dt = 30 * 60;
-x0 = .200;
-y0 = .300;
-z0 = .050;
-dx0 = 0.0001;
+x0 = 200;
+y0 = 300;
+z0 = 50;
+dx0 = 0.1;
 dy0 = 0;
-dz0 = -0.0001;
+dz0 = -0.1;
 mu_E = 398600.4418;
 
 % Analysis
@@ -79,10 +79,8 @@ C = cos(w_tgt * dt);
 dv1 = norm([dx1, dy1, dz1] - [dx0, dy0, dz0]);
 
 % Velocity required to match speed
-dx2 = dx1 * C + (3 * w_tgt * x0 + 2 * dy1) * S;
-dy2 = (6 * w_tgt * x0 + 4 * dy1) * C - 2 * dx1 * S - (6 * w_tgt * x0 + 3 * dy1);
-dz2 = -z0 * w_tgt * S + dz1 * C;
-dv2 = norm([dx2, dy2, dz2] - [dx1, dy1, dz1]);
+[x2, y2, z2, dx2, dy2, dz2] = HILLSEQN(x0, y0, z0, dx1, dy1, dz1, w_tgt, dt);
+dv2 = norm([dx2, dy2, dz2]);
 
 dvT = dv1 + dv2;
 

@@ -1,10 +1,6 @@
 function [rijk, vijk] = COE2RV(p, e, i, raan, w, nu, mu)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Convert ECI position and velocity vectors into orbital elements. This
-%%% function does not apply to:
-%%%     - Elliptical equatorial orbits
-%%%     - Circular inclined orbits
-%%%     - Circular equatorial orbits
+%%% Convert orbital elements into ECI position and velocity vectors.
 %%%
 %%% Input:         p    -   Semi-parameter
 %%%                e    -   Eccentricity vector

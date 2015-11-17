@@ -35,7 +35,7 @@ while 1
     ecc   = str2double(strcat('0.',tline(27:33)));          % Eccentricity
     w     = str2double(tline(35:42));                       % Argument of Perigee (degrees)
     M     = str2double(tline(44:51));                       % Mean Anomaly (degrees)
-    a   = (mu / (str2double(tline(53:63)) * 2 * pi / ...
+    a     = (mu / (str2double(tline(53:63)) * 2 * pi / ...
            86400)^2 )^(1 / 3);                              % semi major axis
     rNo   = str2double(tline(64:68));                       % Revolution Number at Epoch 
     
