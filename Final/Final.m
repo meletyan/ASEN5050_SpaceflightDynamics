@@ -42,9 +42,46 @@ dvvec = v2vec - vivec;
 %% Problem 4
 clc; clear;
 
+Rv = [48965315.1; 96179438.8; 0];
+Vv = [-31.322263; 15.730492; 0];
+VscA = [-28.123456; 8.654321; 0];
+muS = 1.32712428e11;  % km^3/s^2
+muV = 3.257e5;
+delta = 42;
+
+% Analysis
+vv = norm(Vv);
+vsca = norm(VscA);
+ra = norm(Rv);
+epsS = (vsca^2 / 2 - muS / ra) * 1e6;
+Vinf = VscA - Vv;
+vinf = norm(Vinf);
+epsV = vinf^2 / 2 * 1e6;
+ecc = 1 / sind(delta / 2);
+rp = muV * (ecc - 1) / vinf^2;
+vdec = norm(Vv + ROTZ(deg2rad(-delta))*Vinf);
+
+
 %% Problem 5
 clc; clear;
 
+rp  = 185 + 6378.137; % km
+dv1 = 7;              % km/s
+as  = 149597870;      % km
+muE = 398600.4418;    % km^3/s^2
+muS = 1.32712428e11;  % km^3/s^2
+
+% Analysis
+vp = sqrt(muE / rp);
+vE = sqrt(muS / as);
+vinf = sqrt((dv1 + vp)^2 - 2 * muE / rp);
+vd = vinf + vE;
+atrans = 1 / (2 / as - vd^2 / muS);
+rmax = 2 * atrans - as;
+vdmin = vE - vinf;
+atransmin = 1 / (2 / as - vdmin^2 / muS);
+rmin = 2 * atransmin - as;
+imax = 2 * asind(vinf / 2 / vE);
 
 %% Problem 6
 clc; clear;
